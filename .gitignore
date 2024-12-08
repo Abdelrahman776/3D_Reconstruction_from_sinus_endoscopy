@@ -2,6 +2,7 @@
 .venv
 example_training_data_root
 example_training_data_root 1
+dense_reconstruction_trained_models
 meshrender new
 meshrender 
 __pycahe__
