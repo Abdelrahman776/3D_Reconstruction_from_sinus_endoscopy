@@ -5,6 +5,6 @@ example_training_data_root 1
 dense_reconstruction_trained_models
 meshrender new
 meshrender 
-__pycahe__
+__pycache__
 new precompute
 colmap
