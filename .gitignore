@@ -3,6 +3,7 @@
 example_training_data_root
 example_training_data_root 1
 meshrender new
+meshrender 
 __pycahe__
 new precompute
 colmap
