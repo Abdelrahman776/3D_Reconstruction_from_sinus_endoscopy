@@ -1,6 +1,6 @@
 # Reconstructing Sinus Anatomy from Endoscopic Video -- Towards a Radiation-free Approach for Quantitative Longitudinal Assessment
 
-![](gifss/fused_mesh.avi) ![](GIFs/5.gif) ![](GIFs/2.gif) ![](GIFs/3.gif) ![](GIFs/4.gif)
+![](gifss/fused_mesh.gif) 
 
 *Left to right: original video, reconstruction fly-through, depth rendering, monocular depth estimate, monocular depth uncertainty estimate*
 
