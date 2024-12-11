@@ -1,4 +1,5 @@
 # Reconstructing Sinus Anatomy from Endoscopic Videos 
+This is a part of our graduation project Virtual Reality Training Platform for Neurosurgery
 ![alt text](gifss/image-2.png)
 
 ![](gifss/fused_mesh.gif) 
