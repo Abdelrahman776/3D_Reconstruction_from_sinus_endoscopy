@@ -1,66 +1,72 @@
-# Reconstructing Sinus Anatomy from Endoscopic Video -- Towards a Radiation-free Approach for Quantitative Longitudinal Assessment
+# Reconstructing Sinus Anatomy from Endoscopic Videos 
 
 ![](gifss/fused_mesh.gif) 
 
-*Left to right: original video, reconstruction fly-through, depth rendering, monocular depth estimate, monocular depth uncertainty estimate*
+*Left to right: original video, 3D reconstruction fly-through, depth rendering, monocular depth estimate, monocular depth uncertainty estimate*
 
-This codebase implements the method described in the paper:
+This codebase implements a patient-specific, learning-based 3D reconstruction method for sinus surface anatomy using only endoscopic videos, the method described in the paper:
 
-***Reconstructing Sinus Anatomy from Endoscopic Video -- Towards a Radiation-free Approach for Quantitative Longitudinal Assessment***
+[***Reconstructing Sinus Anatomy from Endoscopic Video -- Towards a Radiation-free Approach for Quantitative Longitudinal Assessment***](https://link.springer.com/chapter/10.1007/978-3-030-59716-0_1)
 
+cite [this paper](https://link.springer.com/chapter/10.1007/978-3-030-59716-0_1) if the code is used in your own work.
 Xingtong Liu, Maia Stiber, Jindan Huang, Masaru Ishii, Gregory D. Hager, Russell H. Taylor, Mathias Unberath
 
-In ***the 23rd International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI 2020)***
+
 
 Please contact [**Xingtong Liu**](http://www.cs.jhu.edu/~xingtongl/) (xingtongliu@jhu.edu) or [**Mathias Unberath**](https://www.cs.jhu.edu/faculty/mathias-unberath/) (unberath@jhu.edu) if you have any questions.
 
-We kindly ask you to cite [this paper](https://link.springer.com/chapter/10.1007/978-3-030-59716-0_1) if the code is used in your own work.
-```
-@InProceedings{liu2020reconstructing,
-author="Liu, Xingtong
-and Stiber, Maia
-and Huang, Jindan
-and Ishii, Masaru
-and Hager, Gregory D.
-and Taylor, Russell H.
-and Unberath, Mathias",
-editor="Martel, Anne L.
-and Abolmaesumi, Purang
-and Stoyanov, Danail
-and Mateus, Diana
-and Zuluaga, Maria A.
-and Zhou, S. Kevin
-and Racoceanu, Daniel
-and Joskowicz, Leo",
-title="Reconstructing Sinus Anatomy from Endoscopic Video -- Towards a Radiation-Free Approach for Quantitative Longitudinal Assessment",
-booktitle="Medical Image Computing and Computer Assisted Intervention -- MICCAI 2020",
-year="2020",
-publisher="Springer International Publishing",
-address="Cham",
-pages="3--13",
-isbn="978-3-030-59716-0"
-}
-```
+
+
 
 ## Instructions
 1. Install all necessary python packages: 
 ```
 torch, torchvision, opencv-python (<= 3.4.2.16), opencv-contrib-python (<= 3.4.2.16), numpy, tqdm, pathlib, torchsummary, tensorboardX, albumentations, argparse, pickle, plyfile, pyyaml, datetime, random, shutil, matplotlib, tensorflow, autolab_core, autolab_perception, meshrender, h5py, trimesh, scikit-image, sqlite3
 ```
-Replace the python scripts in the [meshrender](https://github.com/BerkeleyAutomation/meshrender) with the ones in this repo to support texture rendering.
+or instead we will provide a [download link]() to our python virtual environment (.venv) where all the packages are downloaded.
+you have to put the environment folder in the repo folder.
  
+2. Make a folder named images where you have your Color image frames with the format ```{:08d}.jpg``` which are extracted from the endoscopy video. 
+
 2. Generate SfM results from videos using Structure from Motion (SfM), e.g. [COLMAP](https://colmap.github.io/).
+we recommend following this [tutorial](https://www.youtube.com/watch?v=QIxXuilEEVw) to download COLMAP and new add-on called GLOMAP that generates sfm results significantly faster.you can use ```colmap steps.md``` where the commands from the tutorial are written.
+3. make a folder called ```colmap\0```where  your  files cameras.bin, images.bin and points3D.bin and their txt equivalents must be included. These files include the intrinsic camera parameters, extrinsic camera parameters and sparse points, respectively.
+3. Now you have two folders ```images``` with your images in it and ```comap``` folder with your sfm results.
+3. put these two folders in a folder structure similar to the example in the next step. It will be like this```example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\images```
+and 
+```example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\colmap```
+3. You need to make ```undistorted_mask.bmp``` which is a binary mask used to mask out blank regions of the endoscopic video frames. if you don't have one for your videos use a take frame from your video and convert it to a black and white (binary) mask using photo-editing software like photoshop or photopea.put the mask on the same folder with ```colmap``` and ```images``` and inside ```colmap\0```.
+
+3. Use the same folder names to be able to directly use our commands from ```commands.md``` or you can change the commands with respect to you folders names. we also provide each command template after each step of the pipeline.
 
 3. Convert SfM results to the format similar to [this storage](https://livejohnshopkins-my.sharepoint.com/:u:/g/personal/xliu89_jh_edu/ER5ght84vKdHmdYrBpS7HCMBQn9Kl152kVTPB5R10ofKDw?e=fY85o6). 
-Color images with the format ```{:08d}.jpg``` are extracted from the video sequence. ```camer_intrinsics_per_view``` stores ```fx, fy, cx, cy``` element of the estimated camera intrinsics. In this example, since all images are from the same video sequence, we assume the intrinsics are the same for all frames. 
-```motion.yaml``` stores the estimated poses of the camera coordinate system w.r.t. the world coordinate system. ```selected_indexes``` stores all frame indexes of the video sequence. ```structure.ply``` stores the estimated sparse 3D reconstruction from SfM. ```undistorted_mask.bmp``` is a binary mask used to mask out blank regions of the video frames. 
+
+It will include:
+
+ ```camer_intrinsics_per_view``` stores ```fx, fy, cx, cy``` element of the estimated camera intrinsics. In this example, since all images are from the same video sequence, we assume the intrinsics are the same for all frames. 
+
+```motion.yaml``` stores the estimated poses of the camera coordinate system w.r.t. the world coordinate system. 
+
+```selected_indexes``` stores all frame indexes of the video sequence.
+
+ ```structure.ply``` stores the estimated sparse 3D reconstruction from SfM. 
+
+ ```undistorted_mask.bmp``` is a binary mask used to mask out blank regions of the video frames. 
+
 ```view_indexes_per_point``` stores the indexes of the frames that each point in the sparse reconstruction gets triangulated with. The views per point are separated by -1 and the order of the points is the same as that in ```structure.ply```. We smooth out the point visibility information in the script to make the global scale recovery more stable and obtain more sparse points per frame for training. 
-The point visibility smoothness is controled by parameter ```visibility_overlap```.  ```visible_view_indexes``` stores the original frame indexes of the registered views where valid camera poses are successfully estimated by SfM. To convert SfM results from COLMAP to the required format, one example for using ```colmap_model_converter.py``` is:
+The point visibility smoothness is controled by parameter ```visibility_overlap```. 
+
+ ```visible_view_indexes``` stores the original frame indexes of the registered views where valid camera poses are successfully estimated by SfM.
+
+  To convert SfM results from COLMAP to the required format, one example for using ```colmap_model_converter.py``` is:
 ```
 /path/to/python /path/to/colmap_model_converter.py --colmap_exe_path "/path/to/COLMAP.bat" --sequence_root "/path/to/video/sequence"
 ```
+3. To skip training the models download the ***Pre-trained models***
 
-4. Train a feature descriptor model for pair-wise feature matching in SfM. One example for using ```train_descriptor.py``` is:
+The pre-trained weights for dense descriptor network and depth estimation network are provided [here](https://drive.google.com/file/d/1RwmxpI7kuZ7teB14EQY3u06CAV7-KsX0/view?usp=sharing).
+
+4.(optional) Train a feature descriptor model for pair-wise feature matching in SfM. One example for using ```train_descriptor.py``` is:
 ```
 /path/to/python /path/to/train_descriptor.py --adjacent_range 1 50 --image_downsampling 4.0 --network_downsampling 64 --input_size 256 320 --batch_size 4 --num_workers 4 --lr_range 1.0e-4 1.0e-3 --inlier_percentage 0.9 --display_interval 50 --validation_interval 2 --training_patient_id 1 --load_intermediate_data --num_epoch 60 --num_iter 1000 --heatmap_sigma 5.0 --visibility_overlap 20 --display_architecture --data_root "/path/to/training/data/root" --sampling_size 10 --log_root "/path/to/log/root" --feature_length 128 --filter_growth_rate 10 --matching_scale 20.0 --matching_threshold 0.9 --rr_weight 1.0 --cross_check_distance 3.0 --precompute_root "/path/to/precompute/root"
 ```
@@ -80,10 +86,14 @@ The point visibility smoothness is controled by parameter ```visibility_overlap`
 ```
 /path/to/python /path/to/colmap_sparse_reconstruction.py --colmap_exe_path "/path/to/COLMAP.bat" --sequence_root "/path/to/video/sequence"
 ```
+or Run Glomap  mapper  for faster results:
+```
+glomap mapper --database_path path\database.db --image_path path\images --output_path path\colmap\0
+```
 
 8.  Run ```colmap_model_converter.py``` again to convert the SfM result from COLMAP with the trained feature descriptor to the required format for training a depth estimation model. See step 3 for one example.
 
-9. Train a depth estimation model with the data generated in step 8. The previous trained descriptor model can be used to calculate an optional appearance consistency loss. One example is:
+9. (optional) Train a depth estimation model with the data generated in step 8. The previous trained descriptor model can be used to calculate an optional appearance consistency loss. One example is:
 ```
 /path/to/python /path/to/train_depth_estimation.py --adjacent_range 5 30 --image_downsampling 4.0 --network_downsampling 64 --input_size 256 320 --batch_size 4 --num_workers 4 --slp_weight 1.0 --dcl_weight 0.5 --sfl_weight 2.0 --dl_weight 0.05 --lr_range 1.0e-4 1.0e-3 --inlier_percentage 0.9 --display_interval 20 --visible_interval 5 --save_interval 1 --training_patient_id 1 --num_epoch 40 --num_iter 1000 --display_architecture --load_intermediate_data --data_root "/path/to/training/data/root" --log_root "/path/to/log/root" --precompute_root "/path/to/precompute/root" --descriptor_model_path "/path/to/trained/descriptor/model"
 ```
@@ -99,9 +109,26 @@ The point visibility smoothness is controled by parameter ```visibility_overlap`
 /path/to/python /path/to/surface_reconstruction.py --data_root "/path/to/data/root" --visualize_fused_model --trunc_margin_multiplier 10.0 --sequence_root "/path/to/sequence/root" --patient_id 1 --max_voxel_count 64e6
 ```
 
-## Pre-trained models
 
-The pre-trained weights for dense descriptor network and depth estimation network are provided [here](https://drive.google.com/file/d/1RwmxpI7kuZ7teB14EQY3u06CAV7-KsX0/view?usp=sharing).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Related Projects
 
