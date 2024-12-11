@@ -1,11 +1,15 @@
+
+## 1-Feature extraction:
+
 colmap feature_extractor --image_path "D:\oneDrive\Desktop\glotest\images" --database_path "D:\oneDrive\Desktop\glotest\database.db"
 
+## 2-Feature matching:
 colmap sequential_matcher --database_path D:\oneDrive\Desktop\glotest\database.db
 
--sparse reconstruction
+## 3-sparse reconstruction:
 glomap mapper --database_path D:\oneDrive\Desktop\glotest\database.db --image_path D:\oneDrive\Desktop\glotest\images --output_path D:\oneDrive\Desktop\glotest\sparse
 
-- Visualize and save project
+## 4- Visualize and save project and to export results as txt:
 colmap gui --import_path D:\oneDrive\Desktop\glotest\sparse\0 --image_path D:\oneDrive\Desktop\glotest\images --database_path D:\oneDrive\Desktop\glotest\database.db
 
 
