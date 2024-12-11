@@ -38,7 +38,7 @@ you have to put the environment folder in the repo folder.
 we recommend following this [tutorial](https://www.youtube.com/watch?v=QIxXuilEEVw) to download COLMAP and new add-on called GLOMAP that generates sfm results significantly faster.you can use ```colmap steps.md``` where the commands from the tutorial are written.
 3. make a folder called ```colmap\0```where  your  files cameras.bin, images.bin and points3D.bin and their txt equivalents must be included. These files include the intrinsic camera parameters, extrinsic camera parameters and sparse points, respectively.
 3. Now you have two folders ```images``` with your images in it and ```comap``` folder with your sfm results. 
-![alt text](gifss\image-1.png)
+![alt text](gifss\image-1.jpg)
 ![alt text](gifss\image-5.png)
 
 7. put these two folders in a folder structure similar to the example in the next step. It will be like this```example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\images```
