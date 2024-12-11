@@ -1,5 +1,5 @@
 # Reconstructing Sinus Anatomy from Endoscopic Videos 
-![alt text](gifss\image-2.png)
+![alt text](gifss/image-2.png)
 
 ![](gifss/fused_mesh.gif) 
 
@@ -10,7 +10,7 @@ This codebase is an re-implementation of a patient-specific, learning-based 3D r
 [***Reconstructing Sinus Anatomy from Endoscopic Video -- Towards a Radiation-free Approach for Quantitative Longitudinal Assessment***](https://link.springer.com/chapter/10.1007/978-3-030-59716-0_1)
 
 ## The paper pipeline:
-![alt text](gifss\image.png)
+![alt text](gifss/image.png)
 
 
 
@@ -38,8 +38,8 @@ you have to put the environment folder in the repo folder.
 we recommend following this [tutorial](https://www.youtube.com/watch?v=QIxXuilEEVw) to download COLMAP and new add-on called GLOMAP that generates sfm results significantly faster.you can use ```colmap steps.md``` where the commands from the tutorial are written.
 3. make a folder called ```colmap\0```where  your  files cameras.bin, images.bin and points3D.bin and their txt equivalents must be included. These files include the intrinsic camera parameters, extrinsic camera parameters and sparse points, respectively.
 3. Now you have two folders ```images``` with your images in it and ```comap``` folder with your sfm results. 
-![alt text](gifss\image-1.jpg)
-![alt text](gifss\image-5.png)
+![alt text](gifss/image-1.jpg)
+![alt text](gifss/image-5.png)
 
 7. put these two folders in a folder structure similar to the example in the next step. It will be like this```example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\images```
 and 
@@ -112,7 +112,7 @@ glomap mapper --database_path path\database.db --image_path path\images --output
 ```
 /path/to/python /path/to/fusion_data_generation.py --image_downsampling 4.0 --network_downsampling 64 --input_size 256 320 --batch_size 1 --num_workers 1 --visible_interval 5 --inlier_percentage 0.9 --load_intermediate_data --trained_model_path "/path/to/trained/model" --data_root "/path/to/data/root" --sequence_root "/path/to/sequence/root" --patient_id 1 --precompute_root "/path/to/precompute/root"
 ```
-![alt text](gifss\image-3.png)
+![alt text](gifss/image-3.png)
 
 19. Run ```surface_reconstruction.py``` to generate the textured watertight surface reconstruction. A fly-through video will also be generated for sanity check. One example is:
 ```
@@ -120,7 +120,7 @@ glomap mapper --database_path path\database.db --image_path path\images --output
 ```
 
 
-![alt text](gifss\image-4.png)
+![alt text](gifss/image-4.png)
 
 
 
