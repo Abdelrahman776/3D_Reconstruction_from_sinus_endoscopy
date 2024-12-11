@@ -47,7 +47,7 @@ we recommend following this [tutorial](https://www.youtube.com/watch?v=QIxXuilEE
 and 
 ```example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\colmap```
 8. You need to make ```undistorted_mask.bmp``` which is a binary mask used to mask out blank regions of the endoscopic video frames. if you don't have one for your videos use a take frame from your video and convert it to a black and white (binary) mask using photo-editing software like photoshop or photopea.put the mask on the same folder with ```colmap``` and ```images``` and inside ```colmap\0```.
-it looks like this : ![alt text](gifss/undistorted_mask.bmp)
+<!--it looks like this : ![alt text](gifss/undistorted_mask.bmp)-->
 
 9. Use the same folder names to be able to directly use our commands from ```commands.md``` or you can change the commands with respect to you folders names. we also provide each command template after each step of the pipeline.
 
