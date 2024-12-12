@@ -1219,8 +1219,16 @@ def gather_feature_matching_data(feature_descriptor_model_path, sub_folder, data
     return colors_list, boundary, feature_maps_list, start_h, start_w
 
 
-def feature_matching_single_generation(feature_map_1, feature_map_2,
-                                       kps_1D_1, cross_check_distance, gpu_id):
+def feature_matching_single_generation(feature_map_1, feature_map_2, kps_1D_1, cross_check_distance, gpu_id):
+    # print(f"Input feature_map_1 shape: {feature_map_1.shape}")
+    # print(f"Input feature_map_2 shape: {feature_map_2.shape}")
+    # print(f"Input kps_1D_1 shape: {kps_1D_1.shape}")
+    
+    # # Ensure consistent tensor dimensions
+    # assert feature_map_1.dim() == 3, f"Expected 3D tensor, got {feature_map_1.dim()} dimensions"
+    # assert feature_map_2.dim() == 3, f"Expected 3D tensor, got {feature_map_2.dim()} dimensions"
+    
+
     with torch.no_grad():
         # Feature map C x H x W
         feature_length, height, width = feature_map_1.shape

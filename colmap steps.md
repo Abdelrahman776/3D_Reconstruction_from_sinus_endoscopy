@@ -7,7 +7,7 @@ colmap feature_extractor --image_path "D:\oneDrive\Desktop\glotest\images" --dat
 colmap sequential_matcher --database_path D:\oneDrive\Desktop\glotest\database.db
 
 ## 3-sparse reconstruction:
-glomap mapper --database_path D:\oneDrive\Desktop\glotest\database.db --image_path D:\oneDrive\Desktop\glotest\images --output_path D:\oneDrive\Desktop\glotest\sparse
+glomap mapper --database_path D:\oneDrive\Desktop\3D_Reconstruction_from_sinus_endoscopy\example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\database.db --image_path D:\oneDrive\Desktop\3D_Reconstruction_from_sinus_endoscopy\example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\images --output_path D:\oneDrive\Desktop\3D_Reconstruction_from_sinus_endoscopy\example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\colmap
 
 ## 4- Visualize and save project and to export results as txt:
 colmap gui --import_path D:\oneDrive\Desktop\glotest\sparse\0 --image_path D:\oneDrive\Desktop\glotest\images --database_path D:\oneDrive\Desktop\glotest\database.db

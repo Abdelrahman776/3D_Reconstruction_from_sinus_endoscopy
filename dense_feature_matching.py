@@ -180,6 +180,10 @@ if __name__ == '__main__':
                 continue
 
             inlier_ratio = np.sum(inliers) / source_keypoint_locations.shape[0]
+            # if inliers is None or source_keypoint_locations is None or source_keypoint_locations.shape[0] == 0:
+            #     inlier_ratio = 0  # or skip this frame
+            # else:
+            #     inlier_ratio = np.sum(inliers) / source_keypoint_locations.shape[0]
 
             if j == 1:
                 mean_inlier_ratio = inlier_ratio

@@ -1,8 +1,8 @@
 must uplload to github
 
-# video to framessss
+# video to framess
 
-ffmpeg -i input_video.mp4 -vf "fps=17" -q:v 2 images/%04d.jpg
+ffmpeg -i input_video.mp4 -vf "fps=17" -q:v 2 images/%08d.jpg
 
 # step 3 , 8
 
@@ -14,10 +14,7 @@ ffmpeg -i input_video.mp4 -vf "fps=17" -q:v 2 images/%04d.jpg
 
 # step 5
 
-.venv\Scripts\python.exe dense_feature_matching.py --image_downsampling 4.0 --network_downsampling 64 --input_size 256 320 --batch_size 1 --num_workers 1 --load_intermediate_data --data_root "example_training_data_root" --sequence_root "example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00" --trained_model_path "dense_reconstruction_trained_models\descriptor\bag_1_colmap_only\checkpoint_model_epoch_100_0.7375500110313298_0.8749000144898892_0.9466000116430223.pt" --precompute_root "new precompute" --feature_length 128 --filter_growth_rate 10 --max_feature_detection 3000 --cross_check_distance 3.0 --patient_id 1 --gpu_id 0 --temporal_range 30 --test_keypoint_num 200 --residual_threshold 5.0 --octave_layers 8 --contrast_threshold 5e-5 --edge_threshold 100 --sigma 1.1 --skip_interval 5 --min_inlier_ratio 0.2 --hysterisis_factor 0.7
 
-
------------------------------------------------------------------------------------
 .venv\Scripts\python.exe dense_feature_matching.py --image_downsampling 4.0 --network_downsampling 64 --input_size 256 320 --batch_size 1 --num_workers 1  --data_root "example_training_data_root" --sequence_root "example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00" --trained_model_path "dense_reconstruction_trained_models\descriptor\bag_1_colmap_only\checkpoint_model_epoch_100_0.7375500110313298_0.8749000144898892_0.9466000116430223.pt" --precompute_root "new precompute" --feature_length 128 --filter_growth_rate 10 --max_feature_detection 3000 --cross_check_distance 3.0 --patient_id 1 --gpu_id 0 --temporal_range 30 --test_keypoint_num 200 --residual_threshold 5.0 --octave_layers 8 --contrast_threshold 5e-5 --edge_threshold 100 --sigma 1.1 --skip_interval 5 --min_inlier_ratio 0.2 --hysterisis_factor 0.7
 
 

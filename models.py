@@ -68,6 +68,7 @@ class TransitionUp(torch.nn.Module):
     def forward(self, x, skip):
         out = self.convTrans(x)
         out = center_crop_(out, skip.size(2), skip.size(3))
+        # print(f"Shape of ooout: {out.shape}, Shape of skip: {skip.shape}")
         out = torch.cat([out, skip], 1)
         return out
 
