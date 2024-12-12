@@ -1,4 +1,6 @@
 # Reconstructing Sinus Anatomy from Endoscopic Videos 
+This is a part of our graduation project Virtual Reality Training Platform for Neurosurgery
+
 ![alt text](gifss/image-2.png)
 
 ![](gifss/fused_mesh.gif) 
@@ -45,7 +47,7 @@ we recommend following this [tutorial](https://www.youtube.com/watch?v=QIxXuilEE
 and 
 ```example_training_data_root\1\_start_002603_end_002984_stride_1000_segment_00\colmap```
 8. You need to make ```undistorted_mask.bmp``` which is a binary mask used to mask out blank regions of the endoscopic video frames. if you don't have one for your videos use a take frame from your video and convert it to a black and white (binary) mask using photo-editing software like photoshop or photopea.put the mask on the same folder with ```colmap``` and ```images``` and inside ```colmap\0```.
-it looks like this : ![alt text](gifss/undistorted_mask.bmp)
+<!--it looks like this : ![alt text](gifss/undistorted_mask.bmp)-->
 
 9. Use the same folder names to be able to directly use our commands from ```commands.md``` or you can change the commands with respect to you folders names. we also provide each command template after each step of the pipeline.
 
@@ -53,20 +55,20 @@ it looks like this : ![alt text](gifss/undistorted_mask.bmp)
 
 It will include:
 
- ```camer_intrinsics_per_view``` stores ```fx, fy, cx, cy``` element of the estimated camera intrinsics. In this example, since all images are from the same video sequence, we assume the intrinsics are the same for all frames. 
+ - ```camer_intrinsics_per_view``` stores ```fx, fy, cx, cy``` element of the estimated camera intrinsics. In this example, since all images are from the same video sequence, we assume the intrinsics are the same for all frames. 
 
-```motion.yaml``` stores the estimated poses of the camera coordinate system w.r.t. the world coordinate system. 
+- ```motion.yaml``` stores the estimated poses of the camera coordinate system w.r.t. the world coordinate system. 
 
-```selected_indexes``` stores all frame indexes of the video sequence.
+- ```selected_indexes``` stores all frame indexes of the video sequence.
 
- ```structure.ply``` stores the estimated sparse 3D reconstruction from SfM. 
+ - ```structure.ply``` stores the estimated sparse 3D reconstruction from SfM. 
 
- ```undistorted_mask.bmp``` is a binary mask used to mask out blank regions of the video frames. 
+ - ```undistorted_mask.bmp``` is a binary mask used to mask out blank regions of the video frames. 
 
-```view_indexes_per_point``` stores the indexes of the frames that each point in the sparse reconstruction gets triangulated with. The views per point are separated by -1 and the order of the points is the same as that in ```structure.ply```. We smooth out the point visibility information in the script to make the global scale recovery more stable and obtain more sparse points per frame for training. 
+- ```view_indexes_per_point``` stores the indexes of the frames that each point in the sparse reconstruction gets triangulated with. The views per point are separated by -1 and the order of the points is the same as that in ```structure.ply```. We smooth out the point visibility information in the script to make the global scale recovery more stable and obtain more sparse points per frame for training. 
 The point visibility smoothness is controled by parameter ```visibility_overlap```. 
 
- ```visible_view_indexes``` stores the original frame indexes of the registered views where valid camera poses are successfully estimated by SfM.
+ - ```visible_view_indexes``` stores the original frame indexes of the registered views where valid camera poses are successfully estimated by SfM.
 
   To convert SfM results from COLMAP to the required format, one example for using ```colmap_model_converter.py``` is:
 ```
